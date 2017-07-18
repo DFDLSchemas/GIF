@@ -12,13 +12,16 @@
         Version: 0.1
         Date: February 24, 2017
       -->
-	<!--
-        *
-        * NOTICE
-        * This software (or technical data) was produced for the U. S.
-        * Government under contract W15P7T-08-C-F600, and is subject 
-        * to the Rights in Data-General Clause 52.227-14 (JUNE 1987)
-        *
+    
+    <!--  
+        NOTICE
+        This software was produced for the U. S. Government under 
+        Basic Contract No. W15P7T-13-C-A802, and is subject to the
+        Rights in Noncommercial Computer Software and Noncommercial
+        Computer Software Documentation Clause 252.227-7014 (FEB 2012)
+        
+        © 2017 The MITRE Corporation.
+
     -->
     <xs:annotation>
         <xs:appinfo source="http://www.ogf.org/dfdl/">
