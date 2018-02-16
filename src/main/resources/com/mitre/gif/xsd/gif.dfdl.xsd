@@ -123,7 +123,7 @@
 				<xs:sequence dfdl:hiddenGroupRef="hidden_GIF_Signature_Group" />
 				<xs:element name='Signature' type='xs:string' dfdl:inputValueCalc='{
 					if (xs:string(../Hidden_Signature) eq "474946") then "GIF"    
-					else "daf:error()"
+					else fn:error("gif", "fn:error called.", "Header")
 					}' />
 				<!-- 
 					Version - Version number used to format the data stream. 
@@ -133,7 +133,7 @@
 				<xs:element name="Version" type="xs:string" dfdl:inputValueCalc='{
 					if (xs:string(../Hidden_Version) eq "383961") then "89a"
 					else if (xs:string(../Hidden_Version) eq "383761") then "87a"    
-					else daf:error()
+					else fn:error("gif", "fn:error called.", "Header")
 					}'/>
 			</xs:sequence>
 		</xs:complexType>
@@ -143,7 +143,7 @@
 		<xs:sequence>
 			<xs:element name="Hidden_Signature" type="xs:hexBinary" dfdl:length="3" dfdl:lengthKind="explicit"  dfdl:lengthUnits="bytes" dfdl:outputValueCalc="{
 				if (../Signature eq 'GIF') then xs:hexBinary('474946')
-				else daf:error()
+				else fn:error('gif', 'fn:error called.', 'Hidden_Signature')
 				}">
 				<xs:annotation>
 					<xs:appinfo source="http://www.ogf.org/dfdl/">
@@ -160,7 +160,7 @@
 			<xs:element name="Hidden_Version" type="xs:hexBinary" dfdl:length="3" dfdl:lengthKind="explicit"  dfdl:lengthUnits="bytes" dfdl:outputValueCalc="{
 				if (../Version eq '89a') then xs:hexBinary('383961')
 				else if (../Version eq '87a') then xs:hexBinary('383761')
-				else daf:error()
+				else fn:error('gif', 'fn:error called.', 'Hidden_Version')
 				}">
 			</xs:element>
 		</xs:sequence>
@@ -197,7 +197,7 @@
 		else if (../Logical_Screen_Descriptor/Packed_Byte/Size_of_Global_Color_Table eq 5) then 3 * 64
 		else if (../Logical_Screen_Descriptor/Packed_Byte/Size_of_Global_Color_Table eq 6) then 3 * 128
 		else if (../Logical_Screen_Descriptor/Packed_Byte/Size_of_Global_Color_Table eq 7) then 3 * 256
-		else daf:error() }">
+		else fn:error('gif', 'fn:error called.', 'Global_Color_Table') }">
 		<xs:complexType>
 			<xs:sequence>
 				<xs:element name="RGB" minOccurs="0" maxOccurs="unbounded" dfdl:occursCountKind="implicit">
@@ -268,7 +268,7 @@
 		else if (../Image_Descriptor_Minus_First_Two_Bytes/Packed_Byte/Size_of_Color_Table eq 5) then 3 * 64
 		else if (../Image_Descriptor_Minus_First_Two_Bytes/Packed_Byte/Size_of_Color_Table eq 6) then 3 * 128
 		else if (../Image_Descriptor_Minus_First_Two_Bytes/Packed_Byte/Size_of_Color_Table eq 7) then 3 * 256   
-		else daf:error() }">
+		else fn:error('gif', 'fn:error called.', 'Local_Color_Table') }">
 		<xs:complexType>
 			<xs:sequence>
 				<xs:element name="RGB" minOccurs="0" maxOccurs="unbounded" dfdl:occursCountKind="implicit">
