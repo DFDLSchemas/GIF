@@ -12,5 +12,5 @@ object TestGif {
 class TestGif {
   import TestGif._
 
-  @Test def test_gif1() { runner.runOneTest("gif1") }
+  @Test def test_gif1() = { runner.runOneTest("gif1") }
 }
