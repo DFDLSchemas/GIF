@@ -60,53 +60,22 @@
 								</xs:annotation>
 							</xs:element>
 							<xs:element name="Byte2" type="unsignedint8" />
-							<xs:choice>
-								<xs:sequence>
-									<!--  Graphics control extension -->
-									<xs:annotation>
-										<xs:appinfo source="http://www.ogf.org/dfdl/">
-											<dfdl:discriminator test="{(Byte1 eq 33) and (Byte2 eq 249)}"/>  <!-- hex 21 and F9 -->
-										</xs:appinfo>
-									</xs:annotation>
-									<xs:element ref="Graphics_Control_Extension" />
-								</xs:sequence>
-								<xs:sequence>
-									<!--  Application extension -->
-									<xs:annotation>
-										<xs:appinfo source="http://www.ogf.org/dfdl/">
-											<dfdl:discriminator test="{(Byte1 eq 33) and (Byte2 eq 255)}"/>  <!-- hex 21 and FF -->
-										</xs:appinfo>
-									</xs:annotation>
-									<xs:element ref="Application_Extension" />
-								</xs:sequence>
-								<xs:sequence>
-									<!--  Comment extension -->
-									<xs:annotation>
-										<xs:appinfo source="http://www.ogf.org/dfdl/">
-											<dfdl:discriminator test="{(Byte1 eq 33) and (Byte2 eq 254)}"/>  <!-- hex 21 and FE -->
-										</xs:appinfo>
-									</xs:annotation>
-									<xs:element ref="Comment_Extension" />
-								</xs:sequence>
-								<xs:sequence>
-									<!--  Plain text extension -->
-									<xs:annotation>
-										<xs:appinfo source="http://www.ogf.org/dfdl/">
-											<dfdl:discriminator test="{(Byte1 eq 33) and (Byte2 eq 1)}"/>  <!-- hex 21 and 1 -->
-										</xs:appinfo>
-									</xs:annotation>
-									<xs:element ref="Plain_Text_Extension" />
-								</xs:sequence>
-								<xs:sequence>
-									<!--  Image Descriptor -->
-									<xs:annotation>
-										<xs:appinfo source="http://www.ogf.org/dfdl/">
-											<dfdl:discriminator test="{(Byte1 eq 44)}"/>  <!-- hex 2C -->
-										</xs:appinfo>
-									</xs:annotation>
-									<xs:element ref="Image_Descriptor_Minus_First_Two_Bytes" />
-									<xs:element ref="Local_Color_Table" />
-									<xs:element ref="Image_Data" />
+							<xs:choice dfdl:choiceDispatchKey="{ xs:string(Byte1) }">
+								<xs:choice dfdl:choiceBranchKey="33" dfdl:choiceDispatchKey="{ xs:string(Byte2) }">
+								  <!--  Graphics control extension - hex 21 and F9 -->
+								  <xs:element dfdl:choiceBranchKey="249" ref="Graphics_Control_Extension" />
+								  <!--  Application extension - hex 21 and FF -->
+								  <xs:element dfdl:choiceBranchKey="255" ref="Application_Extension" />
+								  <!--  Comment extension - hex 21 and FE -->
+								  <xs:element dfdl:choiceBranchKey="254" ref="Comment_Extension" />
+								  <!--  Plain text extension - hex 21 and 1 -->
+								  <xs:element dfdl:choiceBranchKey="1" ref="Plain_Text_Extension" />
+								</xs:choice>
+								<xs:sequence dfdl:choiceBranchKey="44">
+								  <!--  Image Descriptor - hex 2C -->
+								  <xs:element ref="Image_Descriptor_Minus_First_Two_Bytes" />
+								  <xs:element ref="Local_Color_Table" />
+								  <xs:element ref="Image_Data" />
 								</xs:sequence>
 							</xs:choice>
 						</xs:sequence>
