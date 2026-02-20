@@ -1,7 +1,9 @@
-name := "dfdl-gif"
- 
-organization := "com.mitre"
- 
-version := "0.0.1"
+val root = (project in file("."))
+  .settings(
+    name := "dfdl-gif",
 
-enablePlugins(DaffodilPlugin)
+    organization := "com.mitre",
+
+    version := "0.0.1"
+  )
+  .daffodilProject()
